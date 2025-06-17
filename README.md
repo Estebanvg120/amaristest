@@ -9,7 +9,7 @@ Este proyecto es una API REST que permite autenticar un usuario contra el servic
 1. **Clonar el repositorio**
 
 ```bash
-git clone https://github.com/tu-usuario/amaristest.git
+git clone https://github.com/Estebanvg120/amaristest.git
 cd amaristest
 ```
 
@@ -55,8 +55,8 @@ Puedes usar las siguientes credenciales de prueba (DummyJSON):
 
 ```json
 {
-  "username": "kminchelle",
-  "password": "0lelplR"
+   "username":"emilys",
+   "password":"emilyspass"
 }
 ```
 
@@ -67,16 +67,22 @@ Puedes usar las siguientes credenciales de prueba (DummyJSON):
 ```bash
 curl -X POST http://localhost:8080/api/login/auth \
   -H "Content-Type: application/json" \
-  -d '{"username": "kminchelle", "password": "0lelplR"}'
+  -d '{"username": "emilys", "password": "emilyspass"}'
 ```
 
 Respuesta esperada:
 
 ```json
 {
-  "id": 1,
-  "username": "kminchelle",
-  "token": "eyJhbGciOi..."
+   "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3NTAxMzc2NDcsImV4cCI6MTc1MDE0MTI0N30.OYfo7-LsTu7PlI2gZFaIUN0rFSTmECVt7ajIJaHxPsE",
+   "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJlbWFpbCI6ImVtaWx5LmpvaG5zb25AeC5kdW1teWpzb24uY29tIiwiZmlyc3ROYW1lIjoiRW1pbHkiLCJsYXN0TmFtZSI6IkpvaG5zb24iLCJnZW5kZXIiOiJmZW1hbGUiLCJpbWFnZSI6Imh0dHBzOi8vZHVtbXlqc29uLmNvbS9pY29uL2VtaWx5cy8xMjgiLCJpYXQiOjE3NTAxMzc2NDcsImV4cCI6MTc1MjcyOTY0N30.xPkZh2CzqEj_-8lRUjMuONlB8gqrZX4FnL3NBJIxTCI",
+   "id": 1,
+   "username": "emilys",
+   "email": "emily.johnson@x.dummyjson.com",
+   "firstName": "Emily",
+   "lastName": "Johnson",
+   "gender": "female",
+   "image": "https://dummyjson.com/icon/emilys/128"
 }
 ```
 
@@ -88,28 +94,14 @@ Cada vez que un usuario inicia sesión exitosamente:
 
 1. Se envía la solicitud al endpoint `/api/login/auth`.
 2. El Feign Client autentica al usuario con DummyJSON.
-3. Si las credenciales son válidas, la respuesta se mapea a un modelo de dominio.
+3. Si las credenciales son válidas, la respuesta se mapea a un modelo de dominio y se guarda el accessToken en la cookie.
 4. El login exitoso se **guarda en la base de datos** con la siguiente información:
-   - `user_id` del DummyJSON
+   - `id`
    - `username`
-   - `token` (accessToken)
-   - `fecha` y hora del login (`timestamp`)
+   - `access_token` (accessToken)
+   - `refresh_token` (refreshToken)
+   - `login_time` y hora del login (`timestamp`)
 5. Luego, la respuesta se devuelve al cliente.
-
-### Ejemplo de entidad `LoginEntity`:
-
-```java
-@Entity
-public class LoginEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long userId;
-    private String username;
-    private String token;
-    private LocalDateTime loginDate;
-}
-```
 
 ---
 
