@@ -13,12 +13,12 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 
 @Mapper(componentModel = "spring",
+    uses = IUserMapper.class,
     unmappedSourcePolicy = ReportingPolicy.IGNORE,
     unmappedTargetPolicy = ReportingPolicy.IGNORE
 )
 public interface IDummyClientMapper {
     LoginModel toLoginModel (LoginDummyAuthResponse loginDummyAuthResponse);
     LoginDummyAuthRequest toLoginDummyRequest (LoginModel loginModel);
-    UserModel toUserModel (UserDummyResponse userDummyResponse);
     UsersListModel toListUserModel (UsersListDummyResponse usersListDummyResponse);
 }

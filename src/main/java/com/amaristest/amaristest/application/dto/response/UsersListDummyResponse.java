@@ -23,6 +23,10 @@ public class UsersListDummyResponse {
         return users;
     }
 
+    public void setUsers(List<UserDummyResponse> users) {
+        this.users = users;
+    }
+
     public int getTotal() {
         return total;
     }

@@ -17,19 +17,20 @@ public class LoginLogEntity {
 
     private LocalDateTime login_time;
 
-    private String accessToken;
+    @Column(length = 1000)
+    private String access_token;
+    @Column(length = 1000)
+    private String refresh_token;
 
-    private String refreshToken;
+    public LoginLogEntity() {
+    }
 
-    public LoginLogEntity(Long id, String username, LocalDateTime login_time, String accessToken, String refreshToken) {
+    public LoginLogEntity(Long id, String username, LocalDateTime login_time, String access_token, String refresh_token) {
         this.id = id;
         this.username = username;
         this.login_time = login_time;
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-    }
-
-    public LoginLogEntity() {
+        this.access_token = access_token;
+        this.refresh_token = refresh_token;
     }
 
     public Long getId() {
@@ -56,19 +57,19 @@ public class LoginLogEntity {
         this.login_time = login_time;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 
-    public String getRefreshToken() {
-        return refreshToken;
+    public String getRefresh_token() {
+        return refresh_token;
     }
 
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+    public void setRefresh_token(String refresh_token) {
+        this.refresh_token = refresh_token;
     }
 }
